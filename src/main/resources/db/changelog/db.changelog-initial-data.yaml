@@ -1,0 +1,125 @@
+databaseChangeLog:
+  - changeSet:
+      id: init-data-clients
+      author: MOTAOUIA Mohamed
+      changes:
+        - insert:
+            tableName: CLIENTS
+            columns:
+              - column:
+                  name: first_name
+                  value: "Ali"
+              - column:
+                  name: last_name
+                  value: "MOTA"
+              - column:
+                  name: email
+                  value: "ali.mota@example.com"
+        - insert:
+            tableName: CLIENTS
+            columns:
+              - column:
+                  name: first_name
+                  value: "Adam"
+              - column:
+                  name: last_name
+                  value: "MOTA"
+              - column:
+                  name: email
+                  value: "adam.mota@example.com"
+
+  - changeSet:
+      id: init-data-timeslots
+      author: MOTAOUIA Mohamed
+      changes:
+        - insert:
+            tableName: TIME_SLOTS
+            columns:
+              - column:
+                  name: date
+                  valueDate: "2024-12-20"
+              - column:
+                  name: start_time
+                  value: "09:00:00"
+              - column:
+                  name: end_time
+                  value: "10:00:00"
+              - column:
+                  name: mode_livraison
+                  value: "DELIVERY"
+        - insert:
+            tableName: TIME_SLOTS
+            columns:
+              - column:
+                  name: date
+                  valueDate: "2024-12-20"
+              - column:
+                  name: start_time
+                  value: "10:00:00"
+              - column:
+                  name: end_time
+                  value: "11:00:00"
+              - column:
+                  name: mode_livraison
+                  value: "DELIVERY"
+        - insert:
+            tableName: TIME_SLOTS
+            columns:
+              - column:
+                  name: date
+                  valueDate: "2024-12-20"
+              - column:
+                  name: start_time
+                  value: "14:00:00"
+              - column:
+                  name: end_time
+                  value: "15:00:00"
+              - column:
+                  name: mode_livraison
+                  value: "DRIVE"
+
+  - changeSet:
+      id: init-data-orders
+      author: MOTAOUIA Mohamed
+      changes:
+        # Insert orders without client_id (no longer exists)
+        - insert:
+            tableName: ORDERS
+            columns:
+              - column:
+                  name: mode_livraison
+                  value: "DELIVERY"
+              - column:
+                  name: time_slot_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: ORDERS
+            columns:
+              - column:
+                  name: mode_livraison
+                  value: "DRIVE"
+              - column:
+                  name: time_slot_id
+                  valueNumeric: 3
+  
+  # Now associate the clients with the orders
+  - changeSet:
+      id: associate-clients-with-orders
+      author: MOTAOUIA Mohamed
+      changes:
+        - update:
+            tableName: CLIENTS
+            columns:
+              - column:
+                  name: order_id
+                  valueNumeric: 1
+            where: "id = 1"
+
+        - update:
+            tableName: CLIENTS
+            columns:
+              - column:
+                  name: order_id
+                  valueNumeric: 2
+            where: "id = 2"
