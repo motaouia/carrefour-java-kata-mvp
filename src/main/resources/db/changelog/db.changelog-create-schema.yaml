@@ -1,0 +1,130 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-creneaux-horaire-table
+      author: MOTAOUIA Mohamed
+      changes:
+        - createTable:
+            tableName: CRENEAUX_HORAIRE
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_creneaux_horaire
+                    nullable: false
+              - column:
+                  name: version
+                  type: BIGINT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: TIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mode_livraison
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create-livraisons-table
+      author: MOTAOUIA Mohamed
+      changes:
+        - createTable:
+            tableName: LIVRAISONS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_livraisons
+                    nullable: false
+              - column:
+                  name: version
+                  type: BIGINT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mode_livraison
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: time_slot_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            constraintName: fk_livraisons_creneaux_horaire
+            baseTableName: LIVRAISONS
+            baseColumnNames: time_slot_id
+            referencedTableName: CRENEAUX_HORAIRE
+            referencedColumnNames: id
+            onDelete: SET NULL
+
+  - changeSet:
+      id: create-clients-table
+      author: MOTAOUIA Mohamed
+      changes:
+        - createTable:
+            tableName: CLIENTS
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_clients
+                    nullable: false
+              - column:
+                  name: version
+                  type: BIGINT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: livraison_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            constraintName: fk_clients_livraisons
+            baseTableName: CLIENTS
+            baseColumnNames: livraison_id
+            referencedTableName: LIVRAISONS
+            referencedColumnNames: id
+            onDelete: SET NULL

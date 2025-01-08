@@ -1,39 +1,37 @@
 package org.carrefour.mvp.entities;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 
 import org.carrefour.mvp.entities.enums.ModeLivraison;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "TIME_SLOTS")
+@Table(name = "LIVRAISONS")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeSlot extends BaseEntity {
+public class Livraison extends BaseEntity {
 
-	@NotNull
-	private LocalDate date;
+	@OneToMany(mappedBy = "livraison")
+	private List<Client> clients;
 
-	@NotNull
-	private LocalTime startTime;
-
-	@NotNull
-	private LocalTime endTime;
+	@ManyToOne
+	@JoinColumn(name = "time_slot_id")
+	private CreneauxHoraire creneauxHoraire;
 
 	@Enumerated(EnumType.STRING)
-	@NotNull
 	private ModeLivraison modeLivraison;
 
 }

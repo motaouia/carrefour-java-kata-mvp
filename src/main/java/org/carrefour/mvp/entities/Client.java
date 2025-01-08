@@ -18,16 +18,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Client extends BaseEntity {
-	
+
 	private String firstName;
 	private String lastName;
-	
+
 	@Email
 	@NotBlank
 	private String email;
-	
-	@ManyToOne(optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+
+	@ManyToOne//(optional = false)
+	@JoinColumn(name = "livraison_id"/*, nullable = false*/)
+	private Livraison livraison;
 
 }

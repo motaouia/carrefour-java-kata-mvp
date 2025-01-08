@@ -44,7 +44,9 @@ public class ClientServiceImpl implements ClientService {
 			return new EntityNotFoundException("Client non trouvé pour l'ID: " + clientId);
 		});
 		log.info("Client trouvé: {} {}", client.getFirstName(), client.getLastName());
-		return clientMapper.toDto(client);
+		ClientDTO clientDTO = clientMapper.toDto(client);
+		clientDTO.setId(client.getId());
+		return clientDTO;
 	}
 
 }

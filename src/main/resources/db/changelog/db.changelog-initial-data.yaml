@@ -33,7 +33,7 @@ databaseChangeLog:
       author: MOTAOUIA Mohamed
       changes:
         - insert:
-            tableName: TIME_SLOTS
+            tableName: CRENEAUX_HORAIRE
             columns:
               - column:
                   name: date
@@ -48,7 +48,7 @@ databaseChangeLog:
                   name: mode_livraison
                   value: "DELIVERY"
         - insert:
-            tableName: TIME_SLOTS
+            tableName: CRENEAUX_HORAIRE
             columns:
               - column:
                   name: date
@@ -63,7 +63,7 @@ databaseChangeLog:
                   name: mode_livraison
                   value: "DELIVERY"
         - insert:
-            tableName: TIME_SLOTS
+            tableName: CRENEAUX_HORAIRE
             columns:
               - column:
                   name: date
@@ -79,12 +79,12 @@ databaseChangeLog:
                   value: "DRIVE"
 
   - changeSet:
-      id: init-data-orders
+      id: init-data-livraisons
       author: MOTAOUIA Mohamed
       changes:
-        # Insert orders without client_id (no longer exists)
+        # Insert livraisons without client_id (no longer exists)
         - insert:
-            tableName: ORDERS
+            tableName: LIVRAISONS
             columns:
               - column:
                   name: mode_livraison
@@ -94,7 +94,7 @@ databaseChangeLog:
                   valueNumeric: 1
 
         - insert:
-            tableName: ORDERS
+            tableName: LIVRAISONS
             columns:
               - column:
                   name: mode_livraison
@@ -103,16 +103,16 @@ databaseChangeLog:
                   name: time_slot_id
                   valueNumeric: 3
   
-  # Now associate the clients with the orders
+  # Now associate the clients with the livraisons
   - changeSet:
-      id: associate-clients-with-orders
+      id: associate-clients-with-livraisons
       author: MOTAOUIA Mohamed
       changes:
         - update:
             tableName: CLIENTS
             columns:
               - column:
-                  name: order_id
+                  name: livraison_id
                   valueNumeric: 1
             where: "id = 1"
 
@@ -120,6 +120,6 @@ databaseChangeLog:
             tableName: CLIENTS
             columns:
               - column:
-                  name: order_id
+                  name: livraison_id
                   valueNumeric: 2
             where: "id = 2"

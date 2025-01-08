@@ -10,9 +10,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TimeSlotDTO {
+public class CreneauxHoraireDTO extends BaseDTO {
 
-	private Long id;
 	private LocalDate date;
 	private LocalTime startTime;
 	private LocalTime endTime;

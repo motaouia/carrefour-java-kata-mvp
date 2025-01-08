@@ -145,9 +145,9 @@ Access Swagger UI: You can explore the API and test the endpoints via Swagger UI
 
 | Ressource                                               | POST                                  | GET                           | PATCH | PUT                                       | DELETE |
 | ------------------------------------------------------- | ------------------------------------- | ------------------------------ | ----- | ----------------------------------------- | ------ |
-| **/api/orders**                                         | Créer une nouvelle commande pour un client | Récupérer tous les modes de livraison | X     | X                                     | X      |
-| **/api/orders/{orderId}/clients/{clientId}**            | X                                     | X                              | X     | Définir le mode de livraison              | X      |
-| **/api/orders/{clientId}/orders/{orderId}/timeslot**    | X                                     | X                              | X     | Assigner un créneau horaire à une commande | X      |
+| **/api/livraisons**                                         | Créer une nouvelle commande pour un client | Récupérer tous les modes de livraison | X     | X                                     | X      |
+| **/api/livraisons/{livraisonId}/clients/{clientId}**            | X                                     | X                              | X     | Définir le mode de livraison              | X      |
+| **/api/livraisons/{clientId}/livraisons/{livraisonId}/timeslot**    | X                                     | X                              | X     | Assigner un créneau horaire à une commande | X      |
 
 ### Gestion des Créneaux Horaires
 

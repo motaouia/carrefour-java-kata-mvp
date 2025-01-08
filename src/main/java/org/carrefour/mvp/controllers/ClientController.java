@@ -2,7 +2,6 @@ package org.carrefour.mvp.controllers;
 
 import org.carrefour.mvp.mappers.dtos.ClientDTO;
 import org.carrefour.mvp.service.ClientService;
-import org.carrefour.mvp.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,38 +18,34 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/clients")
-@Tag(name = "Client Management", description = "APIs related to client creation and orders")
+@RequestMapping("/api/v1/clients")
+@Tag(name = "Gestion des Clients", description = "APIs liées à la gestion des clients")
 public class ClientController {
 
 	private final ClientService clientService;
-	private final OrderService orderService;
 
-	public ClientController(ClientService clientService, OrderService orderService) {
+	public ClientController(ClientService clientService) {
 		this.clientService = clientService;
-		this.orderService = orderService;
 	}
 
 	@PostMapping
-	@Operation(summary = "Create a new client", description = "Creates a new client with provided details")
+	@Operation(summary = "Créer un nouveau client", description = "Crée un nouveau client avec les détails fournis")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Client created successfully", content = @Content),
-			@ApiResponse(responseCode = "400", description = "Invalid input", content = @Content),
-			@ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
-	public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO clientDTO) {
+			@ApiResponse(responseCode = "201", description = "Client créé avec succès", content = @Content),
+			@ApiResponse(responseCode = "400", description = "Entrée invalide", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Erreur interne du serveur", content = @Content) })
+	public ResponseEntity<ClientDTO> creerClient(@RequestBody ClientDTO clientDTO) {
 		ClientDTO client = clientService.createClient(clientDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(client);
 	}
 
 	@GetMapping("/{clientId}")
-	@Operation(summary = "Get client details", description = "Retrieves detailed information of a client by their ID")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Client found", content = @Content),
-			@ApiResponse(responseCode = "404", description = "Client not found", content = @Content),
-			@ApiResponse(responseCode = "500", description = "Internal server error", content = @Content) })
-	public ResponseEntity<ClientDTO> getClient(@PathVariable Long clientId) {
+	@Operation(summary = "Obtenir les détails d'un client", description = "Récupère les informations détaillées d'un client par son ID")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Client trouvé", content = @Content),
+			@ApiResponse(responseCode = "404", description = "Client non trouvé", content = @Content),
+			@ApiResponse(responseCode = "500", description = "Erreur interne du serveur", content = @Content) })
+	public ResponseEntity<ClientDTO> obtenirClient(@PathVariable Long clientId) {
 		ClientDTO client = clientService.getClientById(clientId);
 		return ResponseEntity.ok(client);
-
 	}
-
 }

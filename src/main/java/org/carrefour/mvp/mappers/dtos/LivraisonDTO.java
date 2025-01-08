@@ -9,9 +9,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderDTO {
-    private Long id;
+public class LivraisonDTO extends BaseDTO {
     private List<ClientDTO> clients;
-    private TimeSlotDTO timeSlot;
+    private CreneauxHoraireDTO creneauxHoraire;
     private ModeLivraison modeLivraison;
 }
